@@ -30,10 +30,12 @@ func (d deck) print() {
 }
 
 func deal(d deck, handSize int) (deck, deck) {
+	//returns elements from 0(inclusive) to the handSize(exclusive)
 	return d[:handSize], d[handSize:]
 }
 
 func (d deck) toString() string {
+	//[]string(d) converts deck d into a slice of strings 
 	return strings.Join([]string(d), ",")
 }
 
