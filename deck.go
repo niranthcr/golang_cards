@@ -1,8 +1,9 @@
 package main
 
 import (
-	"io/ioutil"
 	"fmt"
+	"io/ioutil"
+	"os"
 	"strings"
 )
 
@@ -35,10 +36,21 @@ func deal(d deck, handSize int) (deck, deck) {
 }
 
 func (d deck) toString() string {
-	//[]string(d) converts deck d into a slice of strings 
+	//[]string(d) converts deck d into a slice of strings
 	return strings.Join([]string(d), ",")
 }
 
-func (d deck) saveToFile(filename string) error  {
+func (d deck) saveToFile(filename string) error {
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	byteSlice, err := ioutil.ReadFile(filename)
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
+
+	ss := strings.Split(string(byteSlice), ",")
+	return deck(ss)
 }
